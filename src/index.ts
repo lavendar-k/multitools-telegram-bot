@@ -1,4 +1,5 @@
 import 'colors';
+import express from 'express';
 import { BotService } from './services/bot.service';
 
 const startBot = () => {
@@ -11,15 +12,10 @@ const startBot = () => {
   }
 };
 
-// Handle graceful shutdown
-process.on('SIGINT', () => {
-  console.info('Received SIGINT. Bot stopping...');
-  process.exit();
-});
+const app = express();
 
-process.on('SIGTERM', () => {
-  console.info('Received SIGTERM. Bot stopping...');
-  process.exit();
-});
+app.get('/', (req, res) => res.send('Express on Vercel'));
+
+app.listen(3000, () => console.log('Server ready on port 3000.'));
 
 startBot();
